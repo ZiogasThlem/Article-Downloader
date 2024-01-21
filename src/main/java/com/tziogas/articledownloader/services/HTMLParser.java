@@ -16,7 +16,7 @@ public class HTMLParser {
 
     public static String parseHTML(String url) throws IOException, AppException {
         Document document = Jsoup.connect(url).get();
-        Elements paragraphs = document.select("p");
+        Elements paragraphs = document.select("div");
         StringBuilder result = new StringBuilder();
         for (Element paragraph : paragraphs) {
             result.append(paragraph.text()).append("\n");
@@ -25,6 +25,6 @@ public class HTMLParser {
     }
 
     public static String extractArticleTitle(String url) {
-        return "";
+        return "title";
     }
 }

@@ -42,7 +42,7 @@ public class HTMLParserController {
         urlField = new TextField();
         parseButton = new Button("Parse HTML");
         downloadMdButton = new Button(("Download MD"));
-        resultLabel = new Label("Here is a label placeholder.");
+        resultLabel = new Label();
         downloadMdButton.setVisible(false);
 
         parseButton.setOnAction(this::onParseButtonClick);
@@ -56,7 +56,9 @@ public class HTMLParserController {
         primaryStage.show();
     }
 
+    @FXML
     private void onParseButtonClick(ActionEvent actionEvent) {
+        parseButton.requestFocus();
         logger.info("Parse button clicked " + actionEvent.getEventType().getName());
         parseButton.setOnAction(event -> {
             String url = urlField.getText();
@@ -64,25 +66,22 @@ public class HTMLParserController {
                 parsedResult = HTMLParser.parseHTML(url);
                 resultLabel.setText("Found content:\n" + parsedResult);
                 downloadMdButton.setVisible(true);
-                logger.info("Parse button clicked 2");
             } catch (IOException | AppException e) {
                 resultLabel.setText("Error fetching or parsing HTML.");
                 logger.error("Error fetching or parsing HTML.");
             }
-            logger.info("Parse button clicked 3");
         });
     }
 
+    @FXML
     private void onDownloadButtonClick(ActionEvent actionEvent) {
-        logger.info("Download button clicked " + actionEvent.getEventType().getName());
+        downloadMdButton.requestFocus();
         downloadMdButton.setOnAction(event -> {
-            logger.info("download button clickedddddd");
             HTMLtoMDParser.createMarkdownFile(
                     Constants.FILE_DIRECTORY_PATH,
-                    "",
+                    Constants.FILE_NAME,
                     HTMLtoMDParser.parseHTMLtoMD(parsedResult)
             );
-
             resultLabel.setText("File saved!");
             logger.info("File saved");
         });

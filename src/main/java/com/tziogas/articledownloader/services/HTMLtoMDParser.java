@@ -18,24 +18,19 @@ public class HTMLtoMDParser {
 
     public static String parseHTMLtoMD(String htmlContent) {
         Document doc = Jsoup.parse(htmlContent);
-        Elements elements = doc.select("*");
+        return doc.body().text();
+    }
 
-        StringBuilder markdownContent = new StringBuilder();
-
-        for (Element element : elements) {
-            logger.info("ELEMENT" + element.tag().getName());
-            if (Constants.ELEMENT_ID_TO_BE_DOWNLOADED.equals(element.id())) {
-                markdownContent.append(element.text()).append("\n\n");
-            }
-        }
-        return markdownContent.toString();
+    private static void parseElement(Element element, StringBuilder markdownContent) {
+        logger.info("Element Found!");
+        markdownContent.append(element.text());
     }
 
     public static void createMarkdownFile(String directoryPath, String fileName, String markdownContent) {
         logger.info("DIRECTORY PATH: " + directoryPath);
         logger.info("FILE NAME: " + fileName);
         try {
-            File markdownFile = new File(directoryPath, fileName);
+            File markdownFile = new File(directoryPath, fileName + ".md");
             FileWriter writer = new FileWriter(markdownFile);
             writer.write(markdownContent);
             logger.info("Markdown file created successfully: " + markdownFile.getAbsolutePath());
