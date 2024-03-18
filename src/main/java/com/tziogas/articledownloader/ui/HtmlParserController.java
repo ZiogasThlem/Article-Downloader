@@ -1,5 +1,6 @@
-package com.tziogas.articledownloader;
+package com.tziogas.articledownloader.ui;
 
+import com.tziogas.articledownloader.services.HTMLParser;
 import com.tziogas.articledownloader.utils.LogWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.Optional;
 
@@ -16,18 +18,49 @@ public class HtmlParserController {
 
     @FXML
     public Button submitButton;
+    @FXML
+    public ListView<String> content;
 
     @FXML
-    private Label label;
+    public Label htmlTagLabel;
 
     @FXML
-    private TextField textField;
+    private Label urlLabel;
+
+    @FXML
+    private Label targetElementLabel;
+
+    @FXML
+    private TextField urlTextField;
+
+    @FXML
+    private TextField targetElementTextField;
+
+    @FXML
+    private TextField htmlTagTextField;
 
     @FXML
     public void initialize () {
-        submitButton.setOnAction(event -> {
-            showSimpleDialog(event, "sup", Alert.AlertType.CONFIRMATION);
-        });
+        submitButton.setOnAction(this::onSubmitButtonClick);
+    }
+
+    @FXML
+    private void onSubmitButtonClick(ActionEvent actionEvent) {
+        if (targetElementTextField.getText().isBlank() || urlTextField.getText().isBlank()) {
+            return;
+        }
+        String element = targetElementTextField.getText();
+        String url = urlTextField.getText();
+        String tag = htmlTagTextField.getText();
+
+        try {
+            content.getItems().add(HTMLParser.parseHtmlToString(url, tag, element));
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+            throw new RuntimeException(e);
+        }
+
+        showSimpleDialog(actionEvent, "sup", Alert.AlertType.CONFIRMATION);
     }
 
 

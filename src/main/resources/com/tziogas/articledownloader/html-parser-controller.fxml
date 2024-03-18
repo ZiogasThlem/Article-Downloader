@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.tziogas.articledownloader.HtmlParserController"
+            fx:controller="com.tziogas.articledownloader.ui.HtmlParserController"
             prefHeight="400.0" prefWidth="600.0">
 
-    <Label fx:id="label" text="Devices' IP Addresses" AnchorPane.topAnchor="130" AnchorPane.leftAnchor="20"/>
-    <TextField fx:id="textField" prefWidth="150" AnchorPane.topAnchor="160" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" promptText="www.type-your-article-url-here.com"/>
+    <Label fx:id="urlLabel" text="URL" AnchorPane.topAnchor="70" AnchorPane.leftAnchor="20"/>
+    <TextField fx:id="urlTextField" prefWidth="75" AnchorPane.topAnchor="90" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" promptText="www.type-your-article-url-here.com"/>
+
+    <Label fx:id="targetElementLabel" text="Element" AnchorPane.topAnchor="120" AnchorPane.leftAnchor="20"/>
+    <TextField fx:id="targetElementTextField" prefWidth="50" AnchorPane.topAnchor="140" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" promptText="www.type-your-article-url-here.com"/>
+
+    <Label fx:id="htmlTagLabel" text="Html Tag" AnchorPane.topAnchor="180" AnchorPane.leftAnchor="20"/>
+    <TextField fx:id="htmlTagTextField" prefWidth="50" AnchorPane.topAnchor="200" AnchorPane.leftAnchor="20"
+               AnchorPane.rightAnchor="20" promptText="#, . ect"/>
+
+    <ListView fx:id="content" prefWidth="150" prefHeight="150" AnchorPane.topAnchor="260" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" />
     <Button fx:id="submitButton" AnchorPane.bottomAnchor="20" AnchorPane.rightAnchor="20" text="Submit"/>
 
 </AnchorPane>
